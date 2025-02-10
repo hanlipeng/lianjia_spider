@@ -1,7 +1,7 @@
 """
 页面解析模块，负责解析链家房源页面
 """
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 from bs4 import BeautifulSoup
 import re
 from datetime import datetime
@@ -10,7 +10,7 @@ class Parser:
     """链家页面解析器"""
     
     @staticmethod
-    def parse_list_page(html: str) -> tuple[List[Dict], Optional[int]]:
+    def parse_list_page(html: str) -> Tuple[List[Dict], Optional[int]]:
         """
         解析列表页面
         
@@ -140,9 +140,9 @@ class Parser:
                 result['community'] = community.find('a').text.strip()
             
             # 所在区域
-            area = soup.find('div', class_='areaName')
-            if area:
-                result['area'] = ' '.join([a.text.strip() for a in area.find_all('a')])
+            area_div = soup.find('div', class_='areaName')
+            if area_div:
+                result['district'] = ' '.join([a.text.strip() for a in area_div.find_all('a')])
                 
         except Exception as e:
             print(f"解析详情页失败: {e}")

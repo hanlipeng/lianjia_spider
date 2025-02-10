@@ -5,7 +5,7 @@ import os
 import time
 import random
 import requests
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Tuple
 from ..utils.headers import HeadersManager
 from ..utils.state import StateManager
 from ..utils.retry import retry_on_failure
@@ -48,7 +48,7 @@ class LianjiaSpider:
         delay = random.uniform(CONFIG['DELAY_RANGE'][0], CONFIG['DELAY_RANGE'][1])
         time.sleep(delay)
     
-    def crawl_list_page(self, page: int) -> tuple[List[Dict], Optional[int]]:
+    def crawl_list_page(self, page: int) -> Tuple[List[Dict], Optional[int]]:
         """
         爬取列表页
         

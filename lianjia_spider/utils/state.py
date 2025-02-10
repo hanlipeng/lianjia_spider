@@ -16,7 +16,8 @@ class StateManager:
         Args:
             progress_file: 进度文件路径
         """
-        self.progress_file = progress_file
+        self.file_path = progress_file
+        self.progress_file = progress_file  # 保持向后兼容
         self.current_state = {
             'current_page': 1,
             'scraped_ids': [],
@@ -24,6 +25,8 @@ class StateManager:
             'last_update': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         }
         self._load_state()
+        # 确保状态文件存在
+        self.save_state()
     
     def _load_state(self) -> None:
         """从文件加载状态"""
@@ -59,6 +62,16 @@ class StateManager:
         if total_items is not None:
             self.current_state['total_items'] = total_items
     
+    @property
+    def current_page(self) -> int:
+        """当前页码"""
+        return self.current_state['current_page']
+    
+    @current_page.setter
+    def current_page(self, value: int) -> None:
+        """设置当前页码"""
+        self.current_state['current_page'] = value
+    
     def get_current_page(self) -> int:
         """获取当前页码"""
         return self.current_state['current_page']
@@ -83,7 +96,7 @@ class StateManager:
         """
         return house_id in self.current_state['scraped_ids']
     
-    def get_progress_info(self) -> Dict:
+    def get_progress(self) -> Dict:
         """
         获取进度信息
         

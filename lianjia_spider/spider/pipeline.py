@@ -76,30 +76,48 @@ class CSVPipeline:
             numbers = ''.join(filter(lambda x: x.isdigit() or x == '.', text))
             return numbers if numbers else ''
         
-        # 标准化字段
+        # 字段映射关系（英文字段名到中文字段名）
         field_mapping = {
-            'house_id': lambda x: str(x),
-            'title': lambda x: str(x).strip(),
-            'total_price': lambda x: extract_number(x),
-            'unit_price': lambda x: extract_number(x),
-            'community': lambda x: str(x).strip(),
-            'area': lambda x: str(x).strip(),
-            'house_type': lambda x: str(x).strip(),
-            'floor': lambda x: str(x).strip(),
-            'orientation': lambda x: str(x).strip(),
-            'decoration': lambda x: str(x).strip(),
-            'has_elevator': lambda x: str(x).strip(),
-            'build_year': lambda x: extract_number(x)
+            'house_id': '房源ID',
+            'title': '标题',
+            'total_price': '总价',
+            'unit_price': '单价',
+            'community': '小区名',
+            'district': '区域',
+            'house_type': '户型',
+            'area': '面积',
+            'orientation': '朝向',
+            'decoration': '装修',
+            'has_elevator': '电梯',
+            'floor': '楼层',
+            'build_year': '建筑年代',
+            'crawl_time': '抓取时间'
+        }
+        
+        # 清洗规则
+        clean_rules = {
+            '房源ID': lambda x: str(x),
+            '标题': lambda x: str(x).strip(),
+            '总价': lambda x: extract_number(x),
+            '单价': lambda x: extract_number(x),
+            '小区名': lambda x: str(x).strip(),
+            '区域': lambda x: str(x).strip(),
+            '户型': lambda x: str(x).strip(),
+            '面积': lambda x: str(x).strip(),
+            '朝向': lambda x: str(x).strip(),
+            '装修': lambda x: str(x).strip(),
+            '电梯': lambda x: str(x).strip(),
+            '楼层': lambda x: str(x).strip(),
+            '建筑年代': lambda x: extract_number(x),
+            '抓取时间': lambda x: str(x).strip()
         }
         
         # 应用清洗规则
-        for field in CSV_HEADERS:
-            field_en = field
-            value = item.get(field_en, '')
-            if field_en in field_mapping:
-                cleaned[field] = field_mapping[field_en](value)
-            else:
-                cleaned[field] = str(value).strip()
+        for en_field, value in item.items():
+            if en_field in field_mapping:
+                cn_field = field_mapping[en_field]
+                if cn_field in clean_rules:
+                    cleaned[cn_field] = clean_rules[cn_field](value)
         
         # 添加爬取时间
         if 'crawl_time' not in cleaned:

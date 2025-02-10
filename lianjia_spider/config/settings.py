@@ -4,8 +4,8 @@
 
 # 爬虫基础配置
 CONFIG = {
-    # 链家北京二手房URL
-    'BASE_URL': 'https://bj.lianjia.com/ershoufang/',
+    # 链家成都二手房URL
+    'BASE_URL': 'https://cd.lianjia.com/ershoufang/',
     
     # 请求配置
     'DELAY_RANGE': (2, 5),  # 随机延迟范围（秒）
