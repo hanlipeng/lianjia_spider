@@ -6,12 +6,12 @@ import time
 import random
 import requests
 from typing import Optional, List, Dict, Tuple
-from ..utils.headers import HeadersManager
-from ..utils.state import StateManager
-from ..utils.retry import retry_on_failure
-from .parser import Parser
-from .pipeline import CSVPipeline
-from ..config.settings import CONFIG
+from lianjia_spider.utils.headers import HeadersManager
+from lianjia_spider.utils.state import StateManager
+from lianjia_spider.utils.retry import retry_on_failure
+from lianjia_spider.spider.parser import Parser
+from lianjia_spider.spider.pipeline import CSVPipeline
+from lianjia_spider.config.settings import CONFIG
 
 class LianjiaSpider:
     """链家爬虫实现"""

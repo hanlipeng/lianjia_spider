@@ -3,8 +3,10 @@
 """
 import os
 import logging
-from .spider import LianjiaSpider
-from .config.settings import CONFIG
+from lianjia_spider.spider.spider import LianjiaSpider
+from lianjia_spider.config.settings import CONFIG
+
+
 
 def setup_logging():
     """配置日志"""

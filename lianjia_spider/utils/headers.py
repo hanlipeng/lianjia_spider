@@ -3,7 +3,7 @@
 """
 import random
 from typing import Dict
-from ..config.settings import USER_AGENTS
+from lianjia_spider.config.settings import USER_AGENTS
 
 class HeadersManager:
     """请求头管理器"""

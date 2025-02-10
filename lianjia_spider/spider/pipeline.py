@@ -5,7 +5,7 @@ import os
 import csv
 from typing import Dict, List
 from datetime import datetime
-from ..config.settings import CSV_HEADERS
+from lianjia_spider.config.settings import CSV_HEADERS
 
 class CSVPipeline:
     """CSV数据处理管道"""
